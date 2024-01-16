@@ -1,0 +1,59 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate grid of true positions
+start_x = -400
+end_x = 400
+start_y = -100
+end_y = 400
+step = 100
+
+bad_region = [
+    (-100, 100),
+    (100, -100)
+]
+
+y_grid = np.arange(end_y, start_y-1, -step)
+x_grid = np.arange(start_x, end_x+1, step)
+
+true_grid = np.array([
+    (x,y) for y in y_grid for x in x_grid
+])
+
+# Copy this from raw detection xy coordinates
+found_points = np.array([(-204.2670368707153, -107.89106175937144), (206.090656826797, -110.00836764382043), (-302.6846936571002, -105.76678294722288), (409.43334585294855, -109.47736986446716), (302.9075531864788, -108.07839632515402), (-402.3164951793222, -106.53860372447627), (-202.9775755876042, -5.709398798836816), (407.9690752574772, -9.910154731326827), (305.4567704344005, -6.474982506372356), (205.14052458801095, -7.787379909539652), (-303.2771110075498, -3.4051265854796213), (-401.16574895204974, -4.434277407225721), (204.1274681903536, 96.10661490763573), (-203.23379765358996, 97.02039787803346), (-300.5222874978659, 98.90554427749115), (404.62666482506665, 97.48752847536053), (303.49156674069957, 96.02815026699412), (-401.52639725856693, 97.63995310177401), (-100.71392777006432, 197.5896182421607), (-300.3081449025301, 199.0147691702568), (403.84983183965886, 197.18300785479025), (303.51362585597377, 197.76524890451674), (202.7412974517569, 197.29950143940022), (102.08666759705628, 198.51855926607374), (0.9284448025508105, 197.89119186445828), (-201.30230610030452, 198.48444517408382), (-397.8879645363794, 199.84912142691516), (300.161111125044, 298.8051230378005), (-100.9006901186779, 298.9735342598941), (-201.34125841106956, 298.91825406373766), (-300.03227467014756, 299.7346448678302), (99.67037067177631, 300.5286368270772), (0.6711706665970816, 299.24763796429545), (399.70529367053814, 299.0803978591379), (201.03252458822288, 299.5368481908919), (-397.8822005481757, 300.53255974797094), (-101.84227672983558, 399.17462239556255), (-199.9449542086643, 399.0152291142387), (299.76323890991824, 400.1931297039279), (199.45088012124464, 400.2368870553473), (-0.47002547409488926, 400.23590022908047), (-397.49338946480884, 398.93015229885094), (-298.67408482087274, 401.01484980460197), (101.78323256894686, 401.2281144169949), (398.1708400783699, 401.1199349856101)])
+
+# Sort by y first reversed, then by x
+true_points = np.round(found_points, -2)
+true_points[:,1] *= -1 # Necessary to reverse
+sort_i = np.lexsort((true_points[:,0], true_points[:,1]))
+true_points[:,1] *= -1 # Turn back to normal
+
+found_points = found_points[sort_i]
+true_points = true_points[sort_i]
+
+print(true_points)
+print()
+print(found_points)
+print()
+
+# Debug tester
+# found_points = true_points + np.random.rand(*true_points.shape)*3
+
+# Get euclidean distance as error for each point
+errors_flat = np.linalg.norm(true_points - found_points, axis=1)
+errors = np.zeros((y_grid.size, x_grid.size))
+for flat_i, true_point in enumerate(true_points):
+    i = np.where(np.all(true_grid==true_point, axis=1))[0][0]
+    i_2d = (i//x_grid.size, i%x_grid.size)
+    print(true_point, i, i_2d)
+    errors[i_2d] = errors_flat[flat_i]
+
+plt.imshow(errors, cmap='plasma', interpolation='nearest')
+plt.fill([2.5, 2.5, 5.5, 5.5], [2.5, 5.5, 5.5, 2.5], 'w')
+plt.xticks(np.arange(x_grid.size), x_grid)
+plt.yticks(np.arange(y_grid.size), y_grid)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.colorbar(label='Error (mm)')
+plt.show()
