@@ -1,4 +1,4 @@
-# Robotics Systems Lab (ROB 550)| University of Michigan 
+# Robotics Systems Lab | University of Michigan 
 
 ## Armlab
 
