@@ -44,3 +44,51 @@ Potential improvements include:
 - Smoother trajectories and motion optimization
 
 Overall, the project demonstrates effective robotic pick-and-place guided by computer vision. The versatility makes it a promising platform for automation applications.
+
+## Botlab
+
+### Overview
+This project involved developing software for MBot, a two-wheeled differential drive robot, to enable autonomous mapping, localization, path planning, and navigation. 
+
+### Key components:
+
+- Motor control through PID tuning and odometry estimation
+- Particle filter and mapping algorithms for SLAM-based localization
+- A* path planning for optimal path generation
+- Exploration logic to traverse and map unknown environments
+- A forklift mechanism to move and stack boxes
+
+The integrated system was evaluated in a competition across 4 events requiring autonomous traversal, mapping, and item manipulation.
+
+### Methodology
+The project involved the following key steps:
+
+- Calibrating and tuning PID control for the wheel motors
+- Estimating odometry from encoders and IMU
+- Implementing particle filter for localization with sensor model and motion model
+- Building occupancy grid maps from LIDAR scans
+- Path planning with A* search and obstacle avoidance
+- Frontier-based exploration to map unknown environments
+- Designing a 3D-printed forklift with threaded screws for lifting crates
+
+### Results
+The implemented system demonstrated:
+
+- Precise motor control within 0.02 m/s of commands
+- Low odometry errors (~0.1 m) over short paths
+- Accurate mapping and localization with SLAM
+- Fast optimal path planning under 100 ms
+- Successful exploration and mapping
+- Effective (though manual) lifting and stacking with the forklift
+
+The robot succeeded in all competition events, including exploration, traversal, and object manipulation.
+
+### Discussion
+The PID control, path planning, and mapping components were robust. Potential improvements include:
+
+- Smoother trajectories with different controllers or pruning
+- More accurate pose estimation by fusing encoders and IMU
+- Autonomous control for the forklift mechanism
+- Incorporating additional sensors for enhanced perception
+
+Overall, the project demonstrated a capable autonomous mobile robot system using SLAM, path planning, and control techniques. Further work can build on this foundation to enable more complex behaviors.
