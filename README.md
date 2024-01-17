@@ -1,12 +1,11 @@
-# ROB-550-F23
 # Robotics Systems Lab | University of Michigan 
 
-# Armlab
+## Armlab
 
-## Overview
+### Overview
 This project involved developing a robotic pick-and-place system using a 5-Degree-of-Freedom (DOF) robotic arm, computer vision, and motion planning techniques. The goal was to pick, sort, stack, and arrange colored blocks on a workspace using the robotic arm, guided by computer vision.
 
-## Key components of the project:
+### Key components of the project:
 
 - Camera calibration to determine intrinsic parameters and extrinsic transformation between camera and robot frames
 - Modeling robotic arm kinematics to map end-effector poses to joint angles
@@ -15,7 +14,7 @@ This project involved developing a robotic pick-and-place system using a 5-Degre
 
 The system demonstrated the ability to carry out complex block sorting, stacking, and arrangement tasks.
 
-## Methodology
+### Methodology
 The project involved the following key steps:
 
 - Manual and automatic camera calibration using a checkerboard and AprilTags
@@ -26,7 +25,7 @@ The project involved the following key steps:
 - Generating waypoints for pick-and-place motions
 - Visual servoing to precisely pick and place blocks
 
-## Results
+### Results
 The system succeeded in all competition tasks, including:
 
 - Sorting blocks by size
@@ -36,7 +35,7 @@ The system succeeded in all competition tasks, including:
 
 The integrated calibration, perception, planning, and control framework enabled robust performance across diverse manipulation tasks.
 
-## Discussion
+### Discussion
 Potential improvements include:
 
 - Enhanced calibration for higher accuracy
